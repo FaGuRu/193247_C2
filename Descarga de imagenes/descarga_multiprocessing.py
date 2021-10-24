@@ -2,7 +2,8 @@ from imgurpython import ImgurClient
 from multiprocessing.pool import ThreadPool
 import os
 import urllib.request
-from time import time
+import time
+from multiprocessing import Pool
 
 secret_client = "5f8c3cce299db5e26a2eb96b0b7809a82805c9ad"
 id_client = "bfa0e227a1c5643"
@@ -26,5 +27,15 @@ def main():
     for imagen in imagenes:
         descarga(imagen.link)
 
+    # Cuenta el tiempo transcurrido de este rastreador
+    t1 = time.time()
+        
+    with Pool(10) as p: # Es la cantidad de CPU's simuladas
+        print(p.apply_async(descarga))  
+        
+    t2 = time.time()
+    print('Usando Multiprocessing, tiempo total:% s' % (t2 - t1))
+        
+
 if __name__ == "__main__":
-    pass
+   main()
