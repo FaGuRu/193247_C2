@@ -2,7 +2,7 @@ from imgurpython import ImgurClient
 from concurrent.futures import ThreadPoolExecutor
 import os
 import urllib.request
-import time
+import timeit
 
 secret_client = "5f8c3cce299db5e26a2eb96b0b7809a82805c9ad"
 id_client = "bfa0e227a1c5643"
@@ -21,19 +21,10 @@ def descarga(link):
 
 def main():
     id_album = "bUaCfoz"
-    imagenes = client.get_album_images(id_album)
-    
-    for imagen in imagenes:
-        descarga(imagen.link)
-        
-    # Cuenta el tiempo transcurrido de este rastreador
-    t1 = time.time()
+    imagenes = [imagen.link for imagen in client.get_album_images(id_album)] #Pasamos el for de sincrono a la variable
 
-    executor = ThreadPoolExecutor(max_workers=10)  # Es la cantidad de hilos max_workers
-    future_tasks = executor.submit(descarga) #Asignamos una tarea a nuestro ThreadPool
-    
-    t2 = time.time()
-    print('Usando Multithreading, tiempo total:% s' % (t2 - t1))
+    with ThreadPoolExecutor(max_workers=10) as executor:  # Es la cantidad de hilos max_workers
+        executor.map(descarga,imagenes) #Asignamos una tarea a nuestro ThreadPool
 
 if __name__ == "__main__":
-    main()
+    print("Tiempo de descarga {}".format(timeit.Timer(main).timeit(number=1)))

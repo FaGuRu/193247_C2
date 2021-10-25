@@ -7,7 +7,7 @@ ThreadPoolExecutors proporciona una abstracción simple en torno a la creación 
 ¿Qué son los max_workers?
 Lo que normalmente significa es el número de subproceso(hilos) que tendra.
 
-Tiempo con Multithreading:0.0010013580322265625 s
+Tiempo con Multithreading:1.4672230999999998 s
 
 
 --------------------------------Multiprocessing-------------------------------
@@ -19,7 +19,7 @@ Se utiliza cuando se requiere paralelismo basado en funciones, donde podría def
 ¿Qué es una pool?
 Ofrece un medio conveniente para paralelizar la ejecución de una función a través de múltiples valores de entrada, distribuyendo los datos de entrada a través de procesos, es decir, paralelismo basado en datos.
 
-Tiempo con Multiprocessing: 0.07910728454589844s
+Tiempo con Multiprocessing: 5.6083032 s
 
 
 --------------------------------Sincrono-------------------------------
